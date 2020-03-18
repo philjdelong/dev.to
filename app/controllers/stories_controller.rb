@@ -16,6 +16,7 @@ class StoriesController < ApplicationController
 
   rescue_from ArgumentError, with: :bad_request
 
+  # this should be the action for the homepage
   def index
     @page = (params[:page] || 1).to_i
     @article_index = true
@@ -23,6 +24,7 @@ class StoriesController < ApplicationController
     return handle_user_or_organization_or_podcast_or_page_index if params[:username]
     return handle_tag_index if params[:tag]
 
+    # private method that handles lots of things including the view
     handle_base_index
   end
 
@@ -143,19 +145,23 @@ class StoriesController < ApplicationController
     render template: "pages/show"
   end
 
+  # private method used in index action
   def handle_base_index
     @home_page = true
+    # private methods below
     assign_feed_stories
     assign_hero_html
     assign_podcasts
     assign_classified_listings
     get_latest_campaign_articles if SiteConfig.campaign_sidebar_enabled?
     @article_index = true
+    # set featured story
     @featured_story = (@featured_story || Article.new)&.decorate
+    # prep stories (look at this more)
     @stories = ArticleDecorator.decorate_collection(@stories)
     set_surrogate_key_header "main_app_home_page"
     response.headers["Surrogate-Control"] = "max-age=600, stale-while-revalidate=30, stale-if-error=86400"
-
+    # here is the view which points to lots of other partials
     render template: "articles/index"
   end
 
