@@ -1,10 +1,13 @@
 # rubocop:disable Metrics/BlockLength
 
 Rails.application.routes.draw do
+  # doorkeeper is a gem that introduces oauth provider functionality,
+  # also look for before_action :doorkeeper_authorize! elsewhere
   use_doorkeeper do
     controllers tokens: "oauth/tokens"
   end
 
+  # devise is another gem, works with doorkeeper https://github.com/heartcombo/devise
   devise_for :users, controllers: {
     omniauth_callbacks: "omniauth_callbacks",
     registrations: "registrations"
@@ -327,14 +330,22 @@ Rails.application.routes.draw do
   get "/settings/(:tab)" => "users#edit", :as => :user_settings
   get "/settings/:tab/:org_id" => "users#edit"
   get "/signout_confirm" => "users#signout_confirm"
+  # user dashboard, can see posts, followers, following
   get "/dashboard" => "dashboards#show"
   get "/dashboard/pro" => "dashboards#pro"
   get "dashboard/pro/org/:org_id" => "dashboards#pro"
+  # shows options to see followed tags, users, organizations and podcasts
+  # defaults to tags
   get "dashboard/following" => "dashboards#following_tags"
+  # list of followed tags
   get "dashboard/following_tags" => "dashboards#following_tags"
+  # list of users being followed
   get "dashboard/following_users" => "dashboards#following_users"
+  # list of organizations being followed
   get "dashboard/following_organizations" => "dashboards#following_organizations"
+  # list of podcasts being followed
   get "dashboard/following_podcasts" => "dashboards#following_podcasts"
+  # list of followers for logged in user
   get "/dashboard/:which" => "dashboards#followers", :constraints => { which: /user_followers/ }
   get "/dashboard/:which/:org_id" => "dashboards#show",
       :constraints => {
@@ -356,13 +367,15 @@ Rails.application.routes.draw do
 
   get "/shell_top" => "shell#top"
   get "/shell_bottom" => "shell#bottom"
-
+  # write a new post (post == article)
   get "/new" => "articles#new"
   get "/new/:template" => "articles#new"
-
+  # full list of podcasts
   get "/pod", to: "podcast_episodes#index"
-  get "/podcasts", to: redirect("pod")
+  get "/podcasts", to: redirect("pod") # redirects to the offline page?
+  # logged in users reading list (blank if not logged in)
   get "/readinglist" => "reading_list_items#index"
+  # archived reading list - not actually working, if i archive a post, it says its archived then reappears
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
 
   get "/feed" => "articles#feed", :as => "feed", :defaults => { format: "rss" }
@@ -373,6 +386,7 @@ Rails.application.routes.draw do
   get "/rss" => "articles#feed", :defaults => { format: "rss" }
 
   get "/tag/:tag" => "stories#index"
+  # :tag is the name of the tag, ie 'beginners'
   get "/t/:tag", to: "stories#index", as: :tag
   get "/t/:tag/edit", to: "tags#edit"
   get "/t/:tag/admin", to: "tags#admin"
@@ -380,11 +394,14 @@ Rails.application.routes.draw do
   get "/t/:tag/top/:timeframe" => "stories#index"
   get "/t/:tag/:timeframe" => "stories#index",
       :constraints => { timeframe: /latest/ }
-
+  # slug replaces something that might have an id w/ a human readable word
+  # and therefore does not explose the ID
   get "/badge/:slug" => "badges#show"
-
+  # timeframe: week, month, year, infinity, latest is actually /latest
+  # today also seems to work
   get "/top/:timeframe" => "stories#index"
 
+  # the only timeframe you can enter here is latest
   get "/:timeframe" => "stories#index", :constraints => { timeframe: /latest/ }
 
   # Legacy comment format (might still be floating around app, and external links)
@@ -394,24 +411,32 @@ Rails.application.routes.draw do
   get "/:username/:slug/comments/:id_code/delete_confirm" => "comments#delete_confirm"
 
   # Proper link format
+  # user comment showpage?
   get "/:username/comment/:id_code" => "comments#index"
+  # edit comment
   get "/:username/comment/:id_code/edit" => "comments#edit"
+  # delete
   get "/:username/comment/:id_code/delete_confirm" => "comments#delete_confirm"
   get "/:username/comment/:id_code/mod" => "moderations#comment"
+  # comment settings where you can mute notifications
   get "/:username/comment/:id_code/settings", to: "comments#settings"
 
   get "/:username/:slug/:view" => "stories#show",
       :constraints => { view: /moderate/ }
   get "/:username/:slug/mod" => "moderations#article"
+  # bring you to a manage your post page
   get "/:username/:slug/manage" => "articles#manage"
+  # edit the post
   get "/:username/:slug/edit" => "articles#edit"
   get "/:username/:slug/delete_confirm" => "articles#delete_confirm"
   get "/:username/:slug/stats" => "articles#stats"
   get "/:username/:view" => "stories#index",
       :constraints => { view: /comments|moderate|admin/ }
+  # i think this shows a specific article?
   get "/:username/:slug" => "stories#show"
+  # User show page that also routes to stories#show
   get "/:username" => "stories#index"
-
+  # this is the root page of the app that leads to the stories index controller
   root "stories#index"
 end
 
