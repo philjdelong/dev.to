@@ -1,7 +1,9 @@
 class Reaction < ApplicationRecord
   include AlgoliaSearch
 
+  # potentially add reading collections to article categories. Articles can have multiple categories
   CATEGORIES = %w[like readinglist unicorn thinking hands thumbsdown vomit].freeze
+
   REACTABLE_TYPES = %w[Comment Article User].freeze
   STATUSES = %w[valid invalid confirmed archived].freeze
 

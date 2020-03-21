@@ -1,0 +1,30 @@
+<% title "Reading Collections" %>
+
+<%# no idea what the meta tags or meta_data is doing %>
+<%= content_for :page_meta do %>
+  <link rel="canonical" href="https://dev.to/reading_collections" />
+  <meta name="description" content="Notifications inbox for dev.to">
+  <meta name="keywords" content="software development,engineering,rails,javascript,ruby">
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://dev.to/reading_collections" />
+  <meta property="og:title" content="Reading Collections - <%= community_qualified_name %>" />
+  <meta property="og:description" content="My Saved Collections on dev.to" />
+  <meta property="og:site_name" content="The Practical Dev" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ThePracticalDev">
+  <meta name="twitter:title" content="Reading Collections - <%= community_qualified_name %>">
+  <meta name="twitter:description" content="Reading Collections for dev.to">
+<% end %>
+
+<%# the div 'home' will render 'Reading List' %>
+<div class="home">
+
+<%# the div class'item-list-containter'/id'reading-list' format the information, so we can likely keep this the same or similar %>
+  <div class="item-list-container" id="reading-list" data-algolia-key="<%= @secured_algolia_key %>" data-view="<%= @view %>">
+  </div>
+</div>
+
+<%# This line renders BE information from '/app/javascript/readingList/readingList' %>
+<%= javascript_pack_tag "readingCollections", defer: true %>

@@ -27,6 +27,10 @@
         <a class="sidebar-nav-link" href="<%= pod_path %>">
           <img class="nav-emoji" src="<%= asset_path("emoji/emoji-one-headphones.png") %>" alt="podcasts icon" /> Podcasts
         </a>
+        <%# We'll need to include a link to the collection %>
+        <a class="sidebar-nav-link" href="<%= reading_collections_path %>">
+          <img class="nav-emoji" src="<%= asset_path("emoji/apple-eyes.png") %>" alt="collections icon" /> Reading Collections
+        </a>
       </div>
     <% end %>
     <header>

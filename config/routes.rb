@@ -360,6 +360,10 @@ Rails.application.routes.draw do
   get "/new" => "articles#new"
   get "/new/:template" => "articles#new"
 
+  # READING COLLECTIONS
+  # include reading_collections to resources
+  get "/reading_collections", to: "reading_collections#index"
+
   get "/pod", to: "podcast_episodes#index"
   get "/podcasts", to: redirect("pod")
   get "/readinglist" => "reading_list_items#index"
