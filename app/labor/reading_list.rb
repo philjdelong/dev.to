@@ -4,6 +4,7 @@ class ReadingList
     @user = user
   end
 
+  # query for reading list articles. joins Articles on reactions where user_id, type, and category are defined in reaction_critera
   def get
     Article.
       joins(:reactions).

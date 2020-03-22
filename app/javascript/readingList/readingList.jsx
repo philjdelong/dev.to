@@ -31,6 +31,7 @@ const FilterText = ({ selectedTags, query, value }) => {
   );
 };
 
+// ReadingList class initialized with default state
 export class ReadingList extends Component {
   constructor(props) {
     super(props);
@@ -62,6 +63,7 @@ export class ReadingList extends Component {
     });
   }
 
+  // Method defining logic for status view: either archived or valid
   toggleStatusView = event => {
     event.preventDefault();
 
@@ -88,6 +90,7 @@ export class ReadingList extends Component {
     window.history.replaceState(null, null, newPath);
   };
 
+  // Method to define logic for toggling archived on a single article
   toggleArchiveStatus = (event, item) => {
     event.preventDefault();
 
@@ -122,6 +125,7 @@ export class ReadingList extends Component {
     return statusView === STATUS_VIEW_VALID;
   }
 
+  // Method to define view when there are no items in the list
   renderEmptyItems() {
     const { itemsLoaded, selectedTags, query } = this.state;
 
@@ -160,6 +164,7 @@ export class ReadingList extends Component {
     );
   }
 
+  // method to define what variables are rendered in the view
   render() {
     const {
       items,
@@ -171,8 +176,9 @@ export class ReadingList extends Component {
       archiving,
     } = this.state;
 
+    // variable used as a helper for statusViewValid method
     const isStatusViewValid = this.statusViewValid();
-
+    // method to define what the botton should read based on archived or unarchived view
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
     const itemsToRender = items.map(item => {
       return (
@@ -184,7 +190,7 @@ export class ReadingList extends Component {
         </ItemListItem>
       );
     });
-
+    // is this const rendering the below text if there is wait time before loading information?
     const snackBar = archiving ? (
       <div className="snackbar">
         {isStatusViewValid ? 'Archiving...' : 'Unarchiving...'}
@@ -192,6 +198,7 @@ export class ReadingList extends Component {
     ) : (
       ''
     );
+    // below returns the logic for sidebar view
     return (
       <div className="home item-list">
         <div className="side-bar">
@@ -258,6 +265,7 @@ export class ReadingList extends Component {
   }
 }
 
+// below classes and module define properties for reading list
 ReadingList.defaultProps = {
   statusView: STATUS_VIEW_VALID,
 };
