@@ -2,6 +2,7 @@
   <div class="sidebar-bg" id="sidebar-bg-left"></div>
   <div class="side-bar">
     <% cache("main-sidebar-nav--#{user_signed_in?}-#{ApplicationConfig['HEROKU_SLUG_COMMIT']}", expires_in: 5.days) do %>
+<%# Rendering articles/sidebar_nav is how you get to the area of the page that has the links for reading list, listings, videos, etc. %>
       <%= render "articles/sidebar_nav" %>
       <div class="widget widget-sponsorship <%= "showing" unless user_signed_in? %>" id="sponsorship-widget">
         <header>
@@ -26,6 +27,7 @@
       </div>
       <div class="widget">
         <header>
+          <!-- This is the bottom left sidebar -->
           <h4>Key links</h4>
         </header>
         <div class="widget-body">

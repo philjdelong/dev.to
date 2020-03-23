@@ -1,3 +1,4 @@
+<!-- This seems to be the rest of the story feed -->
 <div class="single-article single-article-small-pic" data-content-user-id="<%= story.user_id %>">
   <% if story.video.present? && story.video_thumbnail_url.present? %>
     <a class="single-article-video-preview" style="background-image:url(<%= story.cloudinary_video_url %>)" href="<%= story.path %>">
@@ -48,11 +49,14 @@
       </a>
     </div>
   <% end %>
+  <!-- is the link below missing the closing > ? does it matter? -->
   <a
     href="<%= story.path %>"
     class="article-reading-time">
     <%= story.reading_time < 1 ? 1 : story.reading_time %> min read
   </a>
+  <!-- Here are the buttons for the the non-featured stories to be saved to the reading list  -->
+  <!-- is the line below missing a > ? does it matter?  -->
   <button
     type="button"
     class="article-engagement-count engage-button bookmark-button"

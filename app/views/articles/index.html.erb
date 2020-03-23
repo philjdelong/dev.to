@@ -86,6 +86,7 @@
       <%# END Feed menu bar %>
 
       <% if user_signed_in? %>
+      <%# this is the start of the main page story DIV, it seems like stories/main_stories_feed is still being rendered? %>
         <div id="homepage-feed"></div>
       <% else %>
         <%= render "stories/main_stories_feed" %>

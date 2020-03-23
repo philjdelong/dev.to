@@ -10,6 +10,8 @@
   <% end %>
   <div class="widget sidebar-nav-block sidebar-tag-block">
     <% if user_signed_in? %>
+    <!-- This is the upper left nav area where the links to reading list, listings, videos, podcasts, etc are located -->
+<!-- It only shows up when the user is signed in  -->
       <div class="sidebar-nav-element sidebar-main-nav">
         <a class="sidebar-nav-link" href="<%= readinglist_path %>">
           <img class="nav-emoji" src="<%= asset_path("emoji/emoji-one-bookmark.png") %>" alt="reading list icon" /> Reading List
@@ -24,13 +26,21 @@
         <a class="sidebar-nav-link" href="<%= videos_path %>">
           <img class="nav-emoji" src="<%= asset_path("emoji/emoji-one-videocamera.png") %>" alt="videos icon" /> Videos
         </a>
+        <!-- This is a link to podcasts, the class is definied, goes to pod path, has an emoji etc. -->
+        <!-- We will mimic this for reading collections -->
         <a class="sidebar-nav-link" href="<%= pod_path %>">
           <img class="nav-emoji" src="<%= asset_path("emoji/emoji-one-headphones.png") %>" alt="podcasts icon" /> Podcasts
+        </a>
+        <!-- spike on reading collections below -->
+        <a class="sidebar-nav-link" href="<%= pod_path %>">
+          <img class="nav-emoji" src="<%= asset_path("emoji/emoji-one-headphones.png") %>" alt="podcasts icon" /> Reading Collections
         </a>
       </div>
     <% end %>
     <header>
+      <%# This where the tags for a user will show up  %>
       <% if user_signed_in? %>
+      <%# Where on earth do these tags come from?! %>
         My Tags
       <% else %>
         Design Your Experience
@@ -42,6 +52,9 @@
         <% if user_signed_in? %>
           <header id="tag-separator">Other Popular Tags</header>
         <% end %>
+       <!-- Now we are displaying all of the tags that exist, where are the users tags??  -->
+       <!-- Why are we going straight to the Tag model here? -->
+       <!-- Tags are being displayed from *most hot* to *least hot* -->
         <% Tag.where(supported: true).order("hotness_score DESC").limit(30).pluck(:id, :name).each do |tag_array| %>
           <div class="sidebar-nav-element" id="default-sidebar-element-<%= tag_array.second %>">
             <a class="sidebar-nav-link sidebar-nav-link-tag" href="<%= tag_path(tag_array.second) %>">
@@ -51,6 +64,7 @@
             </a>
             <a class="follow-action-button sidebar-nav-link-follow cta"
                href="#" id="sidebar-nav-link-follow-<%= tag_array.second %>"
+               <%# something is going on in line 68 where the tag ID is being sent through in data-info %>
                data-info='{"id":<%= tag_array.first %>,"className":"Tag"}'>
               + FOLLOW
             </a>
