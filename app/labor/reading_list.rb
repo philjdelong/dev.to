@@ -1,9 +1,12 @@
+# reading list is a poro and not a dabatabse!
+# it seems to only be instantiated in an async controller
 class ReadingList
   attr_accessor :user
   def initialize(user)
     @user = user
   end
 
+  # is this method being used in a search somewhere? have not been able to track it down
   def get
     Article.
       joins(:reactions).
