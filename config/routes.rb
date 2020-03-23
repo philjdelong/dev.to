@@ -205,6 +205,8 @@ Rails.application.routes.draw do
     get "purchase", on: :collection, to: "credits#new"
   end
   resources :buffer_updates, only: [:create]
+  # I think this is the route to update the reading list per fetch request in javascript/readingList/readingList
+  # we might need to add [:new, :create] for our form to work reading_list_items/new
   resources :reading_list_items, only: [:update]
   resources :poll_votes, only: %i[show create]
   resources :poll_skips, only: [:create]
@@ -374,6 +376,7 @@ Rails.application.routes.draw do
   get "/pod", to: "podcast_episodes#index"
   get "/podcasts", to: redirect("pod") # redirects to the offline page?
   # logged in users reading list (blank if not logged in)
+  # this route will be used for our new functionality either as a reference OR being modified for new functionality
   get "/readinglist" => "reading_list_items#index"
   # archived reading list - not actually working, if i archive a post, it says its archived then reappears
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
