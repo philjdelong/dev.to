@@ -1,6 +1,7 @@
 class Article < ApplicationRecord
   include CloudinaryHelper
   include ActionView::Helpers
+  # uses Angolia SEarch
   include AlgoliaSearch
   include Storext.model
   include Reactable
@@ -143,6 +144,7 @@ class Article < ApplicationRecord
 
   scope :with_video, -> { published.where.not(video: [nil, ""], video_thumbnail_url: [nil, ""]).where("score > ?", -4) }
 
+  # algolia search configs, note: tag_keywords_for_search and tag_list are both searchable attributes
   algoliasearch per_environment: true, auto_remove: false, enqueue: :trigger_index do
     attribute :title
     add_index "searchables", id: :index_id, per_environment: true, enqueue: :trigger_index do
