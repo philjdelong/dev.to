@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.index ["user_id"], name: "index_api_secrets_on_user_id"
   end
 
+# will be important for our stories
   create_table "articles", id: :serial, force: :cascade do |t|
     t.string "abuse_removal_reason"
     t.boolean "allow_big_edits", default: true
@@ -104,6 +105,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.integer "organic_page_views_past_month_count", default: 0
     t.integer "organic_page_views_past_week_count", default: 0
     t.integer "organization_id"
+    # note! page_views_count for later!!!
     t.datetime "originally_published_at"
     t.integer "page_views_count", default: 0
     t.boolean "paid", default: false
@@ -292,7 +294,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.index ["organization_id"], name: "index_classified_listings_on_organization_id"
     t.index ["user_id"], name: "index_classified_listings_on_user_id"
   end
-
+# will we use collections?
   create_table "collections", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -1027,7 +1029,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.index ["data"], name: "index_user_counters_on_data", using: :gin
     t.index ["user_id"], name: "index_user_counters_on_user_id", unique: true
   end
-
+# users table
   create_table "users", id: :serial, force: :cascade do |t|
     t.integer "articles_count", default: 0, null: false
     t.string "available_for"
