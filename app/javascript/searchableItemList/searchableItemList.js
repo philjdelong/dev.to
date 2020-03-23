@@ -4,13 +4,14 @@ import setupAlgoliaIndex from '../src/utils/algolia';
 // Provides the initial state for the component
 export function defaultState(options) {
   const state = {
+    // there is essentially nothing in the initial state
     query: '',
     index: null,
 
     page: 0,
     hitsPerPage: 80,
     totalCount: 0,
-
+    // items are articles
     items: [],
     itemsLoaded: false,
 
@@ -19,6 +20,7 @@ export function defaultState(options) {
 
     showLoadMoreButton: false,
   };
+  // this is how it combines all the data and sets everything
   return Object.assign({}, state, options);
 }
 
@@ -58,7 +60,7 @@ export function clearSelectedTags(event) {
   component.search(query, { tags: newTags, statusView });
 }
 
-// Perform the initial search
+// Perform the initial search - angolia 'stuff'
 export function performInitialSearch({
   containerId,
   indexName,
@@ -68,11 +70,14 @@ export function performInitialSearch({
   const { hitsPerPage } = component.state;
 
   const index = setupAlgoliaIndex({ containerId, indexName });
-
+  // setting up initial search, this ties back to the empty string return values from the model methods
   index.search('', searchOptions).then(result => {
+    // setting state here, but it's for a componenet from another class
+    // this is pretty "hacky" code according to instructors
+
     component.setState({
-      items: result.hits,
-      totalCount: result.nbHits,
+      items: result.hits, // if looking for articles, it brings all the articles here
+      totalCount: result.nbHits, // number of articles
       index, // set the index in the component state, to be retrieved later
       itemsLoaded: true,
       // show the button if the number of total results is greater
