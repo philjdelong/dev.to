@@ -107,7 +107,7 @@ let waitingForDataLoad = setTimeout(function dataLoadedCheck() {
   // No user data yet for the logged on user, poll once more.
   waitingForDataLoad = setTimeout(dataLoadedCheck, 40);
 }, 40);
-
+// it senses the mouse hover and starts doing the thing in the background
 InstantClick.on('receive', (address, body, title) => {
   if (document.body.dataset.userStatus !== 'logged-in') {
     // Nothing to do, the user is not logged on.
