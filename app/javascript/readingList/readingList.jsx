@@ -1,7 +1,11 @@
+// This seems important but I'm not totally sure what it is doing! its our actual readinglist compoment!
+// can we put a button to a get /readinglist/new here?
 import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
-
+// SIL number of helper fuctions
+// allowing for user interaction
+// tag selection, searching, pagnation
 import {
   defaultState,
   loadNextPage,
@@ -11,10 +15,14 @@ import {
   toggleTag,
   clearSelectedTags,
 } from '../searchableItemList/searchableItemList';
-import { ItemListItem } from '../src/components/ItemList/ItemListItem';
-import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton';
-import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
-import { ItemListTags } from '../src/components/ItemList/ItemListTags';
+
+// abstracts out other components that have been defined elsewhere
+// makes the readingList less cluttered
+
+import { ItemListItem } from '../src/components/ItemList/ItemListItem'; // this has details for each list item
+import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton'; // archive button
+import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton'; // load more button
+import { ItemListTags } from '../src/components/ItemList/ItemListTags'; // tags
 
 const STATUS_VIEW_VALID = 'valid';
 const STATUS_VIEW_ARCHIVED = 'archived';
@@ -30,12 +38,17 @@ const FilterText = ({ selectedTags, query, value }) => {
     </h1>
   );
 };
-
+// reading list class
 export class ReadingList extends Component {
+  // defines the state / where data is being stored in the component
   constructor(props) {
     super(props);
-
+    // keeps track of user tags and status
+    // this is how data gets passed from the prop
     const { availableTags, statusView } = this.props;
+
+    // imports state from global state management
+    // defaultState is coming from searchable item list
     this.state = defaultState({ availableTags, archiving: false, statusView });
 
     // bind and initialize all shared functions
@@ -49,11 +62,13 @@ export class ReadingList extends Component {
     this.clearSelectedTags = clearSelectedTags.bind(this);
   }
 
+  // when a component mounts, load their reading list times
   componentDidMount() {
     const { hitsPerPage, statusView } = this.state;
-
+    // this is going to angolia? and where the article data is coming from
+    // kind of like an endpoint hit / fetch
     this.performInitialSearch({
-      containerId: 'reading-list',
+      containerId: 'reading-list', // used in the setup angolia index, essentially setting up context of the search
       indexName: 'SecuredReactions',
       searchOptions: {
         hitsPerPage,
@@ -92,6 +107,8 @@ export class ReadingList extends Component {
     event.preventDefault();
 
     const { statusView, items, totalCount } = this.state;
+    // fetch request happening here!
+    // need to find the backend test for this
     window.fetch(`/reading_list_items/${item.id}`, {
       method: 'PUT',
       headers: {
@@ -110,7 +127,7 @@ export class ReadingList extends Component {
       items: newItems,
       totalCount: totalCount - 1,
     });
-
+    // whats a snack bar? some sort of a nav bar?
     // hide the snackbar in a few moments
     setTimeout(() => {
       t.setState({ archiving: false });
@@ -131,7 +148,7 @@ export class ReadingList extends Component {
           <FilterText
             selectedTags={selectedTags}
             query={query}
-            value="Your Reading List is Lonely"
+            value="Your Reading List is Lonely" // displays if reading list is empty
           />
           <h3>
             Hit the
@@ -159,10 +176,12 @@ export class ReadingList extends Component {
       </div>
     );
   }
-
+  // imortant to see where the data ends up
   render() {
     const {
-      items,
+      // destructuring from an objects
+      // these are like attributes of the state object
+      items, // items are set in state
       itemsLoaded,
       totalCount,
       availableTags,
@@ -172,8 +191,9 @@ export class ReadingList extends Component {
     } = this.state;
 
     const isStatusViewValid = this.statusViewValid();
-
+    // button to archive vs un archive?
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
+    // this must be the reading list items
     const itemsToRender = items.map(item => {
       return (
         <ItemListItem item={item}>
@@ -193,6 +213,7 @@ export class ReadingList extends Component {
       ''
     );
     return (
+      // this is the sidebar I was not able to locate before
       <div className="home item-list">
         <div className="side-bar">
           <div className="widget filters">
@@ -201,7 +222,8 @@ export class ReadingList extends Component {
               placeHolder="search your list"
             />
             <div className="filters-header">
-              <h4 className="filters-header-text">my tags</h4>
+              <h4 className="filters-header-text">my tags</h4> // the users tags
+              have been found!
               {Boolean(selectedTags.length) && (
                 <a
                   className="filters-header-action"
@@ -236,16 +258,18 @@ export class ReadingList extends Component {
         </div>
 
         <div className="items-container">
+          {' '}
+          // next section is the box where all of the reading list items are
           <div className={`results ${itemsLoaded ? 'results--loaded' : ''}`}>
             <div className="results-header">
               {isStatusViewValid ? 'Reading List' : 'Archive'}
-              {` (${totalCount > 0 ? totalCount : 'empty'})`}
+              {` (${totalCount > 0 ? totalCount : 'empty'})`} // total count of
+              the items in the reading list
             </div>
             <div>
               {items.length > 0 ? itemsToRender : this.renderEmptyItems()}
             </div>
           </div>
-
           <ItemListLoadMoreButton
             show={showLoadMoreButton}
             onClick={this.loadNextPage}
