@@ -46,9 +46,11 @@
       <button
         type="button"
         class="article-engagement-count engage-button bookmark-button featured-engagement-count"
+        <%# We have the featured_story.id being grabbed here, but where does it go next? %>
         data-reactable-id="<%= @featured_story.id %>"
         aria-label="Save to reading list"
         title="Save to reading list">
+        <!-- what happens once this save button is clicked? -->
         <span class="bm-initial">SAVE</span>
         <span class="bm-success">SAVED</span>
       </button>
@@ -65,6 +67,7 @@
       <% if !user_signed_in? && i == 4 %>
         <%= render "stories/sign_in_invitation" %>
       <% end %>
+      <%# Is this the rest of the articles? %>
       <%= render "articles/single_story", story: story %>
     <% end %>
     <% if @stories.size > 1 %>
