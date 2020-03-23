@@ -1,3 +1,5 @@
+# here's a test for the readling_list endpoints
+# can add new tests here
 require "rails_helper"
 
 RSpec.describe "ReadingListItems", type: :request do
@@ -10,6 +12,7 @@ RSpec.describe "ReadingListItems", type: :request do
   before do
     sign_in user
   end
+  # test for the index
 
   describe "GET reading list" do
     it "returns reading list page" do
@@ -17,6 +20,7 @@ RSpec.describe "ReadingListItems", type: :request do
       expect(response.body).to include("Reading List")
     end
   end
+  # test for create
 
   describe "PUT reading_list_items/:id" do
     it "returns archives item if no param" do
@@ -33,4 +37,9 @@ RSpec.describe "ReadingListItems", type: :request do
       expect { put "/reading_list_items/#{unauthorized_reaction.id}" }.to raise_error Pundit::NotAuthorizedError
     end
   end
+
+  # describe "POST reading_list" do
+  #   params = { front end k:v pairs }
+  #   post
+  # end
 end
