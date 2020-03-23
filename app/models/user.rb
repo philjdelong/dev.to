@@ -188,6 +188,7 @@ class User < ApplicationRecord
   before_destroy :destroy_follows, prepend: true
   before_destroy :unsubscribe_from_newsletters, prepend: true
 
+  # this is some sort of algolia config block
   algoliasearch per_environment: true, enqueue: :trigger_delayed_index do
     attribute :name
     add_index "searchables",
@@ -202,6 +203,7 @@ class User < ApplicationRecord
           pro: user.pro?
         }
       end
+      # tag_list? This could be important
       attribute :title, :path, :tag_list, :main_image, :id,
                 :featured, :published, :published_at, :featured_number, :comments_count,
                 :reactions_count, :positive_reactions_count, :class_name, :user_name,
@@ -209,7 +211,7 @@ class User < ApplicationRecord
                 :search_score, :hotness_score
       searchableAttributes ["unordered(title)",
                             "body_text",
-                            "tag_list",
+                            "tag_list", # here is tag_list again
                             "tag_keywords_for_search",
                             "user_name",
                             "user_username",
@@ -247,6 +249,7 @@ class User < ApplicationRecord
     "/" + username.to_s
   end
 
+  # used to get the articles a user follows
   def followed_articles
     Article.tagged_with(cached_followed_tag_names, any: true).
       union(Article.where(user_id: cached_following_users_ids)).
@@ -611,6 +614,7 @@ class User < ApplicationRecord
     errors.add(:mastodon_url, "is not a valid url")
   end
 
+  # Here is the tag_list method, now how do we get these!
   def tag_list
     "" # Unused but necessary for search index
   end
