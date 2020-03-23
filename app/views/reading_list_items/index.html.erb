@@ -2,6 +2,7 @@
 
 <%= content_for :page_meta do %>
   <link rel="canonical" href="https://dev.to/readinglist" />
+  <!-- I definitely do not know what meta names mean -->
   <meta name="description" content="Notifications inbox for dev.to">
   <meta name="keywords" content="software development,engineering,rails,javascript,ruby">
 
@@ -16,9 +17,12 @@
   <meta name="twitter:title" content="Reading List - <%= community_qualified_name %>">
   <meta name="twitter:description" content="Reading List for dev.to">
 <% end %>
-
+<!-- Where does the lefthand nav come from? is it in application.html -->
 <div class="home">
+  <!-- @secured_algolia_key and @view are passed into the view from the controller here. -->
+  <!-- attaches the info to a specific HTML element  -->
   <div class="item-list-container" id="reading-list" data-algolia-key="<%= @secured_algolia_key %>" data-view="<%= @view %>">
   </div>
 </div>
+<%# this is how the readingList component gets brought in, essentially this file is getting loaded in here  %>
 <%= javascript_pack_tag "readingList", defer: true %>
