@@ -155,7 +155,8 @@ class StoriesController < ApplicationController
     assign_classified_listings
     get_latest_campaign_articles if SiteConfig.campaign_sidebar_enabled?
     @article_index = true
-    # set featured story
+    # set featured story, this is used in /stories/_main_stories_feed.html.erb
+    # Note: featured_story has a user_id attached to it
     @featured_story = (@featured_story || Article.new)&.decorate
     # prep stories (look at this more)
     @stories = ArticleDecorator.decorate_collection(@stories)
