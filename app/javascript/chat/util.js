@@ -1,6 +1,8 @@
+// new file that we traced a method from
 import 'intersection-observer';
 
 export function getCsrfToken() {
+  // its getting the value of the token for later so it can make a request to a controller that is not an api endpoint
   const element = document.querySelector(`meta[name='csrf-token']`);
 
   return element !== null ? element.content : undefined;
@@ -20,7 +22,8 @@ const getWaitOnUserDataHandler = ({ resolve, reject, waitTime = 20 }) => {
 
     if (user && csrfToken !== undefined) {
       const currentUser = JSON.parse(user);
-
+      // give back the user as long as we have a user AND a token
+      // stores a user in the html
       resolve({ currentUser, csrfToken });
       return;
     }
