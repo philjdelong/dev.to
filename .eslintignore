@@ -1,2 +1,4 @@
 package.json
 app/assets/javascripts/lib/
+app/javascript/packs/homePage.jsx
+app/javascript/readingList/readingList.jsx
