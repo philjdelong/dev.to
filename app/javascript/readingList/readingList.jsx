@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
 
+// import helper functions from searchableItemList
 import {
   defaultState,
   loadNextPage,
@@ -11,16 +12,20 @@ import {
   toggleTag,
   clearSelectedTags,
 } from '../searchableItemList/searchableItemList';
+
+// import Item components that have been abstracted out
 import { ItemListItem } from '../src/components/ItemList/ItemListItem';
 import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton';
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
 import { ItemListTags } from '../src/components/ItemList/ItemListTags';
 
+// create status view variables for back end storage
 const STATUS_VIEW_VALID = 'valid';
 const STATUS_VIEW_ARCHIVED = 'archived';
 const READING_LIST_ARCHIVE_PATH = '/readinglist/archive';
 const READING_LIST_PATH = '/readinglist';
 
+// handle no data case
 const FilterText = ({ selectedTags, query, value }) => {
   return (
     <h1>
@@ -35,10 +40,14 @@ export class ReadingList extends Component {
   constructor(props) {
     super(props);
 
+    // import tags from this.props
     const { availableTags, statusView } = this.props;
+
+    // create a starter state built off that user information
     this.state = defaultState({ availableTags, archiving: false, statusView });
 
     // bind and initialize all shared functions
+    // allows helper methods to modify state
     this.onSearchBoxType = debounce(onSearchBoxType.bind(this), 300, {
       leading: true,
     });
@@ -52,6 +61,7 @@ export class ReadingList extends Component {
   componentDidMount() {
     const { hitsPerPage, statusView } = this.state;
 
+    // loads initial reading list items from algolia
     this.performInitialSearch({
       containerId: 'reading-list',
       indexName: 'SecuredReactions',
@@ -78,6 +88,7 @@ export class ReadingList extends Component {
     // empty items so that changing the view will start from scratch
     this.setState({ statusView: newStatusView, items: [] });
 
+    // filters through list items.
     this.search(query, {
       page: 0,
       tags: selectedTags,
@@ -88,6 +99,7 @@ export class ReadingList extends Component {
     window.history.replaceState(null, null, newPath);
   };
 
+  // archive and unarchive list items
   toggleArchiveStatus = (event, item) => {
     event.preventDefault();
 
@@ -112,6 +124,7 @@ export class ReadingList extends Component {
     });
 
     // hide the snackbar in a few moments
+    // display messaging while executing
     setTimeout(() => {
       t.setState({ archiving: false });
     }, 1000);
@@ -122,6 +135,7 @@ export class ReadingList extends Component {
     return statusView === STATUS_VIEW_VALID;
   }
 
+  // handle lack of reading list items
   renderEmptyItems() {
     const { itemsLoaded, selectedTags, query } = this.state;
 
@@ -161,6 +175,7 @@ export class ReadingList extends Component {
   }
 
   render() {
+    // pull in finalized items from state
     const {
       items,
       itemsLoaded,
@@ -173,6 +188,7 @@ export class ReadingList extends Component {
 
     const isStatusViewValid = this.statusViewValid();
 
+    // generate item list
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
     const itemsToRender = items.map(item => {
       return (
@@ -185,6 +201,7 @@ export class ReadingList extends Component {
       );
     });
 
+    // create message box structure
     const snackBar = archiving ? (
       <div className="snackbar">
         {isStatusViewValid ? 'Archiving...' : 'Unarchiving...'}
@@ -192,6 +209,8 @@ export class ReadingList extends Component {
     ) : (
       ''
     );
+
+    // render elements to page
     return (
       <div className="home item-list">
         <div className="side-bar">
