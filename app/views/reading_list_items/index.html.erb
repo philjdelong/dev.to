@@ -1,5 +1,6 @@
 <% title "Reading List" %>
 
+# generate meta tags for view
 <%= content_for :page_meta do %>
   <link rel="canonical" href="https://dev.to/readinglist" />
   <meta name="description" content="Notifications inbox for dev.to">
@@ -17,8 +18,12 @@
   <meta name="twitter:description" content="Reading List for dev.to">
 <% end %>
 
+# Generate div to house readingList component
+# Also populate data tags (view status and algolia key) to be referenced off that div
 <div class="home">
   <div class="item-list-container" id="reading-list" data-algolia-key="<%= @secured_algolia_key %>" data-view="<%= @view %>">
   </div>
 </div>
+
+# Pull in readingList pack which renders to the above div
 <%= javascript_pack_tag "readingList", defer: true %>
