@@ -3,7 +3,7 @@ import { getUserDataAndCsrfToken } from '../chat/util';
 import { ReadingList } from '../readingList/readingList';
 
 function loadElement() {
-  // fetch user information and auth token 
+  // fetch user information and auth token
   getUserDataAndCsrfToken().then(({ currentUser }) => {
     // target div from reading list view
     const root = document.getElementById('reading-list');
