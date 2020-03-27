@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CollectionForm /> renders properly 1`] = `
+<div
+  class="articleformcontainer"
+>
+  <section
+    class="articleform"
+  >
+    <form
+      class="articleform__form"
+    >
+      <h1>
+        Add your new collection
+      </h1>
+      <input
+        class="articleform__title"
+        name="title"
+        onChange={[Function]}
+        placeholder="Title..."
+        required={true}
+        type="text"
+      />
+      <div
+        class="articleform__tagswrapper"
+      >
+        <input
+          autoComplete="off"
+          class="articleform__tags"
+          id="tag-input"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onInput={[Function]}
+          onKeyDown={[Function]}
+          placeholder="4 tags max, comma separated, no spaces or special characters"
+          ref={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+      <a
+        class="articleform__buttons--publish collection-btn"
+        href="readinglist"
+        type="button"
+      >
+        CREATE COLLECTION
+      </a>
+    </form>
+  </section>
+</div>
+`;

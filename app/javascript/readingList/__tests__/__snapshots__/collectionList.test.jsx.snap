@@ -3,6 +3,7 @@
 exports[`<ContentList /> renders properly 1`] = `
 <section
   class="collection-cont results results--loaded"
+  id="reading-collection"
 >
   <div
     class="results-header"
