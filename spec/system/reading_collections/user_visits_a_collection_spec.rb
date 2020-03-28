@@ -34,6 +34,7 @@ RSpec.describe "Views a collection", type: :system do
 
     visit "/readingcollections/#{reading_collection.slug}"
 
+    # still showing the page - do we need conditional for user?
     expect(page).not_to have_content(reading_collection.name)
     expect(page).not_to have_css(".article")
   end
