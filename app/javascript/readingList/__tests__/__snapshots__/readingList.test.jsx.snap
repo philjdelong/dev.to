@@ -78,9 +78,15 @@ exports[`<ReadingList /> renders properly 1`] = `
       id="reading-collection"
     >
       <div
-        class="results-header"
+        class="results-header collection-header"
       >
         Collections (2)
+        <a
+          class="new-collection"
+          href="/readingcollections/new"
+        >
+          +
+        </a>
       </div>
       <section
         class="collection item-wrapper"
@@ -88,11 +94,12 @@ exports[`<ReadingList /> renders properly 1`] = `
         <div
           class="item"
         >
-          <p
+          <a
             class="item-title"
+            href="/readingcollections/undefined"
           >
             first_test_post
-          </p>
+          </a>
         </div>
       </section>
       <section
@@ -101,11 +108,12 @@ exports[`<ReadingList /> renders properly 1`] = `
         <div
           class="item"
         >
-          <p
+          <a
             class="item-title"
+            href="/readingcollections/undefined"
           >
             second_test_post
-          </p>
+          </a>
         </div>
       </section>
     </section>
