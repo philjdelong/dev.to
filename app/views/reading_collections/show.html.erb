@@ -1,6 +1,8 @@
-<%= @collection.name %>
-<% @collection.articles.each do |article| %>
-  <div class="article">
-    <%= article.title %>
-  </div>
-<% end %>
+<% title "All collections" %>
+
+<div class="home">
+        <div class="articleformcontainer" id="collection-articles" data-collection="<%= @collection %>" data-articles="<%= @articles %>">
+        </div>
+</div>
+
+<%= javascript_pack_tag "collectionArticles", defer: true %>

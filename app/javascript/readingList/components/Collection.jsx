@@ -1,11 +1,13 @@
 import { h } from 'preact';
 import PropTypes from 'prop-types';
 
-export const Collection = ({ name }) => {
+export const Collection = ({ name, slug }) => {
   return (
     <section className="collection item-wrapper">
       <div className="item">
-        <p className="item-title">{`${name}`}</p>
+        <a href={`/readingcollections/${slug}`} className="item-title">
+          {`${name}`}
+        </a>
       </div>
     </section>
   );
@@ -13,4 +15,5 @@ export const Collection = ({ name }) => {
 
 Collection.propTypes = {
   name: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
 };
