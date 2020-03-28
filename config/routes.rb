@@ -215,6 +215,7 @@ Rails.application.routes.draw do
   resources :podcasts, only: %i[new create]
   resolve("ProMembership") { [:pro_membership] } # see https://guides.rubyonrails.org/routing.html#using-resolve
 
+  get "/readingcollections/new" => "reading_collections#new"
   get "/readingcollections/:slug" => "reading_collections#show"
 
   get "/search/tags" => "search#tags"
@@ -367,8 +368,6 @@ Rails.application.routes.draw do
   get "/podcasts", to: redirect("pod")
   get "/readinglist" => "reading_list_items#index"
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
-
-  get "/readingcollections/new", to: "reading_collections#new"
 
   get "/feed" => "articles#feed", :as => "feed", :defaults => { format: "rss" }
   get "/feed/tag/:tag" => "articles#feed",
