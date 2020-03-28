@@ -37,14 +37,15 @@ export const Article = ({
   ];
 
   return (
-    <section className="coll-article">
-      <a className="new-collection" href={`${path}`}>
-        {`${title}`}
-      </a>
-      <p>{`Reading Time: ${reading_time} min`}</p>
-      <p>{`${monthNames[createMonth]} ${createDay}`}</p>
-      <div className="featured-tags tags">{tagDisp}</div>
-      {/* <a href={`${story.cached_user.username}`} className="small-pic-link-wrapper" /> */}
+    <section className="collection item-wrapper">
+      <div className="item">
+        <a className="new-collection" href={`${path}`}>
+          {`${title}`}
+        </a>
+        <p>{`Reading Time: ${reading_time} min`}</p>
+        <p>{`${monthNames[createMonth]} ${createDay}`}</p>
+        <div className="featured-tags tags">{tagDisp}</div>
+      </div>
     </section>
   );
 };
