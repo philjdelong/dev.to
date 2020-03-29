@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import PropTypes from 'prop-types';
 import { Article } from './components/Article';
+import { TagDisplay } from './components/tagDisplay';
 
 export const CollectionArticles = ({ collection, articles }) => {
   const collectionParse = JSON.parse(collection);
@@ -14,6 +15,7 @@ export const CollectionArticles = ({ collection, articles }) => {
       <section className="collection-cont results results--loaded">
         <div className="results-header collection-header">
           {`${collectionParse.name}`}
+          <TagDisplay tags={collectionParse.tag_list} />
         </div>
         {articleList}
       </section>

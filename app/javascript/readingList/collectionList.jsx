@@ -18,6 +18,7 @@ export class CollectionList extends Component {
         <Collection
           key={collection.id}
           name={collection.name}
+          tags={collection.tag_list}
           slug={collection.slug}
         />
       );

@@ -7,10 +7,9 @@ export class CollectionForm extends Component {
   constructor({ tagList }) {
     super({ tagList });
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
       title: '',
       tagList,
-      // auth: false
+      error: '',
     };
   }
 
@@ -19,10 +18,6 @@ export class CollectionForm extends Component {
   };
 
   submitCollection = (e, title, tags) => {
-    // check that tag length is > 1, title req handled on input
-    // need to modify route also and ensure error handling is included.
-
-    // if successful route to readinglist               href="/readinglist"
     e.preventDefault();
     const tagArr = tags.split(',');
     if (title.length && tags.length) {
@@ -42,12 +37,12 @@ export class CollectionForm extends Component {
         window.location.href = '/readinglist';
       });
     } else {
-      console.log('Please fill out fields');
+      this.setState({ error: 'Please fill out fields' });
     }
   };
 
   render() {
-    const { title, tagList } = this.state;
+    const { title, tagList, error } = this.state;
 
     return (
       <section className="articleform">
@@ -68,7 +63,7 @@ export class CollectionForm extends Component {
             autoComplete="off"
             classPrefix="articleform"
           />
-          {/* <h4>{`${this.state.error}`}</h4> */}
+          <h4>{`${error}`}</h4>
           <button
             className="articleform__buttons--publish button collection-btn"
             type="button"
