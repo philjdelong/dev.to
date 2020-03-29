@@ -5,10 +5,12 @@ module ReadingCollections
     sidekiq_options queue: :high_priority, retry: 10
 
     def perform
-      reading_collections = ReadingCollection.where("updated_at < ?", 1.minute.ago)
+      reading_collections = ReadingCollection.where("updated_at < ?", 3.minutes.ago)
       reading_collections.each do |reading_collection|
         reading_collection.articles.clear
-        reading_collection.get_articles
+        articles = reading_collection.get_articles
+        reading_collection.articles << articles
+        reading_collection.update(updated_at: Time.current)
       end
     end
   end

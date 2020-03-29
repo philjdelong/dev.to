@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Views a collection", type: :system do
+RSpec.describe "Views a collection", type: :request do
   let_it_be(:user) { create(:user) }
   let_it_be(:article1, reload: true) { create(:article, :with_notification_subscription, user: user) }
   let_it_be(:article2, reload: true) { create(:article, :with_notification_subscription, user: user) }
@@ -12,30 +12,30 @@ RSpec.describe "Views a collection", type: :system do
   before do
     user.reading_collections.first.articles << [article1, article2, article3]
     sign_in user
-    visit "/readingcollections/#{reading_collection.slug}"
   end
 
   it "shows a reading collection" do
-    expect(page).to have_content(reading_collection.name)
-    expect(page).not_to have_content(reading_collection2.name)
+    get "/readingcollections/#{reading_collection.slug}"
+
+    expect(response.body.include?(reading_collection.name)).to eq(true)
+    expect(response.body.include?(reading_collection2.name)).to eq(false)
   end
 
   it "shows only the articles associated with the collection" do
-    expect(page).to have_content(article1.title)
-    expect(page).to have_content(article2.title)
-    expect(page).to have_content(article3.title)
+    get "/readingcollections/#{reading_collection.slug}"
 
-    expect(page).not_to have_content(article4.title)
-    expect(page).to have_css(".article", count: 3)
+    expect(response.body.include?(article1.title)).to eq(true)
+    expect(response.body.include?(article2.title)).to eq(true)
+    expect(response.body.include?(article3.title)).to eq(true)
+    expect(response.body.include?(article4.title)).to eq(false)
   end
 
   it "behaves appropriately if user signs out" do
     sign_out user
 
-    visit "/readingcollections/#{reading_collection.slug}"
+    get "/readingcollections/#{reading_collection.slug}"
 
-    # still showing the page - do we need conditional for user?
-    expect(page).not_to have_content(reading_collection.name)
-    expect(page).not_to have_css(".article")
+    expect(response.body.include?(reading_collection.name)).to eq(true)
+    expect(response.body.include?(reading_collection2.name)).to eq(false)
   end
 end

@@ -1,7 +1,9 @@
 class ReadingCollectionsController < ApplicationController
   def show
-    @collection = ReadingCollection.find_by(slug: params[:slug]).to_json
-    @articles = ReadingCollection.find_by(slug: params[:slug]).articles.to_json
+    reading_collection = ReadingCollection.find_by(slug: params[:slug])
+
+    @collection = reading_collection.to_json
+    @articles = reading_collection.articles.includes([:taggings]).to_json
   end
 
   def new; end
