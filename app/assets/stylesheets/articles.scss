@@ -920,15 +920,44 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @include themeable(
+    background,
+    theme-container-accent-background,
+    darken($light-gray, 2%)
+  );
+  padding: 17px;
+  font-size: 1.8em;
+  font-weight: bold;
 }
 
 .collection-btn {
   background: #0045ff;
   color: white;
+  border-radius: 113px;
+  font-size: 1em;
+  padding: 1%;
+}
+
+.coll-item {
+  border: 1px solid #eff1f2;
+  padding: 2%;
+}
+
+.coll-title {
+  font-size: 1.6em;
+  font-weight: bold;
 }
 
 .new-collection {
   font-size: 3rem;
+}
+
+.form-center {
+  display: flex;
+  min-height: 88vh;
+  flex-direction: column;
+  justify-content: center;
 }
 
 // Notifications filtering on mobile.
