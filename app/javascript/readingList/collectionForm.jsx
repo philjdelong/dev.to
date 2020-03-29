@@ -47,7 +47,7 @@ export class CollectionForm extends Component {
     return (
       <section className="articleform">
         <form className="articleform__form">
-          <h1>Add your new collection</h1>
+          <h1>Add Your New Collection</h1>
           <input
             type="text"
             name="title"
