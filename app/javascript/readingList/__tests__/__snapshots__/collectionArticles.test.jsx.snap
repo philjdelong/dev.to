@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CollectionArticles /> renders properly 1`] = `
+<div
+  class="items-container"
+>
+  <section
+    class="collection-cont results results--loaded"
+  >
+    <div
+      class="results-header collection-header"
+    >
+      Testing Collection
+      <section
+        class="tag-display"
+      >
+        <a
+          href="/t/javascript"
+        >
+          <span
+            class="tag"
+          >
+             #javascript
+          </span>
+        </a>
+      </section>
+    </div>
+    <section
+      class="collection item-wrapper"
+    >
+      <div
+        class="coll-item"
+      >
+        <a
+          class="coll-title"
+          href="/joeloelacey/example-test-article-29c8"
+        >
+          Example Test Article
+        </a>
+        <div
+          class="coll-info"
+        >
+          <p>
+            Reading Time: 1 Min
+          </p>
+          <p>
+            Created: March 29
+          </p>
+        </div>
+        <div
+          class="featured-tags tags"
+        >
+          <section
+            class="tag-display"
+          >
+            <a
+              href="/t/javascript"
+            >
+              <span
+                class="tag"
+              >
+                 #javascript
+              </span>
+            </a>
+          </section>
+        </div>
+      </div>
+    </section>
+    <section
+      class="collection item-wrapper"
+    >
+      <div
+        class="coll-item"
+      >
+        <a
+          class="coll-title"
+          href="/joeloelacey/secondary-test-article-44c0"
+        >
+          Secondary Test Article
+        </a>
+        <div
+          class="coll-info"
+        >
+          <p>
+            Reading Time: 1 Min
+          </p>
+          <p>
+            Created: March 29
+          </p>
+        </div>
+        <div
+          class="featured-tags tags"
+        >
+          <section
+            class="tag-display"
+          >
+            <a
+              href="/t/javascript"
+            >
+              <span
+                class="tag"
+              >
+                 #javascript
+              </span>
+            </a>
+          </section>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>
+`;

@@ -1,14 +1,11 @@
 import { h } from 'preact';
 import render from 'preact-render-to-json';
 import { CollectionList } from '../collectionList';
+import { mockCollectionList } from '../mocks/mockTestData';
 
-describe('<ContentList />', () => {
+describe('<CollectionList />', () => {
   it('renders properly', () => {
-    const mockCollections = [
-      { id: 1, name: 'first_test_post' },
-      { id: 2, name: 'second_test_post' },
-    ];
-    const tree = render(<CollectionList collections={mockCollections} />);
+    const tree = render(<CollectionList collections={mockCollectionList} />);
     expect(tree).toMatchSnapshot();
   });
 });

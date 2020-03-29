@@ -8,7 +8,7 @@ exports[`<CollectionForm /> renders properly 1`] = `
     class="articleform__form"
   >
     <h1>
-      Add your new collection
+      Add Your New Collection
     </h1>
     <input
       class="articleform__title"
@@ -32,9 +32,9 @@ exports[`<CollectionForm /> renders properly 1`] = `
         placeholder="4 tags max, comma separated, no spaces or special characters"
         ref={[Function]}
         type="text"
-        value=""
       />
     </div>
+    <h4 />
     <button
       class="articleform__buttons--publish button collection-btn"
       onClick={[Function]}
