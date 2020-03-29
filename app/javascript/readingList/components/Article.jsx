@@ -31,12 +31,14 @@ export const Article = ({
 
   return (
     <section className="collection item-wrapper">
-      <div className="item">
-        <a className="new-collection" href={`${path}`}>
+      <div className="coll-item">
+        <a className="coll-title" href={`${path}`}>
           {`${title}`}
         </a>
-        <p>{`Reading Time: ${reading_time} min`}</p>
-        <p>{`${monthNames[createMonth]} ${createDay}`}</p>
+        <div className="coll-info">
+          <p>{`Reading Time: ${reading_time} Min`}</p>
+          <p>{`Created: ${monthNames[createMonth]} ${createDay}`}</p>
+        </div>
         <div className="featured-tags tags">
           <TagDisplay tags={tags} />
         </div>
