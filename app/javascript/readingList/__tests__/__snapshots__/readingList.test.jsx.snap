@@ -73,7 +73,7 @@ exports[`<ReadingList /> renders properly 1`] = `
   <div
     class="items-container"
   >
-    <section
+    <div
       class="collection-cont results results--loaded"
       id="reading-collection"
     >
@@ -96,10 +96,32 @@ exports[`<ReadingList /> renders properly 1`] = `
         >
           <a
             class="item-title"
-            href="/readingcollections/undefined"
+            href="/readingcollections/testing-collection-2ioh"
           >
-            first_test_post
+            Testing Collection
           </a>
+          <section
+            class="tag-display"
+          >
+            <a
+              href="/t/javascript"
+            >
+              <span
+                class="tag"
+              >
+                 #javascript
+              </span>
+            </a>
+            <a
+              href="/t/webdev"
+            >
+              <span
+                class="tag"
+              >
+                 #webdev
+              </span>
+            </a>
+          </section>
         </div>
       </section>
       <section
@@ -110,13 +132,35 @@ exports[`<ReadingList /> renders properly 1`] = `
         >
           <a
             class="item-title"
-            href="/readingcollections/undefined"
+            href="/readingcollections/testing-collection2-2dwa"
           >
-            second_test_post
+            Testing Collection 2
           </a>
+          <section
+            class="tag-display"
+          >
+            <a
+              href="/t/security"
+            >
+              <span
+                class="tag"
+              >
+                 #security
+              </span>
+            </a>
+            <a
+              href="/t/java"
+            >
+              <span
+                class="tag"
+              >
+                 #java
+              </span>
+            </a>
+          </section>
         </div>
       </section>
-    </section>
+    </div>
   </div>
 </div>
 `;
