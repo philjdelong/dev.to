@@ -6,8 +6,8 @@ RSpec.describe ReadingCollections::RefreshReadingCollectionWorker, type: :worker
   describe "#perform" do
     it "removes old articles from the collection" do
       user = create(:user)
-      collection1 = create(:reading_collection, name: "Coll 1", user: user, tag_list: %w[javascript career], created_at: Time.current - 15.seconds, updated_at: Time.current - 15.seconds)
-      article1 = create(:article, user: user, created_at: Time.current - 15.seconds)
+      collection1 = create(:reading_collection, name: "Coll 1", user: user, tag_list: %w[javascript career], created_at: Time.current - 4.minutes, updated_at: Time.current - 4.minutes)
+      article1 = create(:article, user: user, created_at: Time.current - 1.minute)
       collection1.articles << article1
 
       worker.perform
@@ -28,15 +28,15 @@ RSpec.describe ReadingCollections::RefreshReadingCollectionWorker, type: :worker
       collection1 = create(:reading_collection, name: "Coll 1",
                                                 user: user,
                                                 tag_list: %w[javascript career],
-                                                created_at: Time.current - 15.seconds,
-                                                updated_at: Time.current - 15.seconds)
+                                                created_at: Time.current - 4.minutes,
+                                                updated_at: Time.current - 4.minutes)
 
-      article1 = create(:article, user: user, created_at: Time.current - 15.seconds)
+      article1 = create(:article, user: user, created_at: Time.current - 1.minute)
       collection1.articles << article1
 
       worker.perform
 
-      ReadingCollection.find(collection1.id).update(updated_at: Time.current - 15.seconds)
+      ReadingCollection.find(collection1.id).update(updated_at: Time.current - 4.minutes)
 
       article2 = create(:article, user: user, tags: %w[javascript])
 
