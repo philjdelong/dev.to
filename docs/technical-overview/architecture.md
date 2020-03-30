@@ -38,6 +38,12 @@ we try to reduce our bundle size with
 
 ## Service workers and shell architecture
 
+**Reading Collections**
+
+- Machine Collections: About
+- Describe: Schema Update
+- Describe: Reading Collections
+
 We make use of serviceworkers to cache portions of the page.
 
 We cache styles here as well as script fingerprinting, so we should increment
